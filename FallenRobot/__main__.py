@@ -93,7 +93,7 @@ buttons = [
     ],
     [
         InlineKeyboardButton(text="🤖 ᴀʙᴏᴜᴛ ᴍᴇ 🤖", callback_data="fallen_"),
-        InlineKeyboardButton(text="♪ ᴍᴜsɪᴄ ♪", url=f"https://t.me/TSO_CHATS"),
+        InlineKeyboardButton(text="♪ ᴍᴜsɪᴄ ♪", callback_data="settings_back_helper"),
     ],
     [
         InlineKeyboardButton(text="🥀 sᴜᴘᴘᴏʀᴛ 🥀", url=f"https://t.me/{SUPPORT_CHAT}"),
