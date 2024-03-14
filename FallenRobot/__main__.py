@@ -96,7 +96,7 @@ buttons = [
         InlineKeyboardButton(text="♪ ᴍᴜsɪᴄ ♪", callback_data="settings_back_helper"),
     ],
     [
-        InlineKeyboardButton(text="🥀 sᴜᴘᴘᴏʀᴛ 🥀", url=f"https://t.me/TSO_CHATS"),
+        InlineKeyboardButton(text="🥀 sᴜᴘᴘᴏʀᴛ 🥀", url=f"https://t.me/THE_HELL_VERSE"),
         InlineKeyboardButton(text="❄️ ᴜᴘᴅᴀᴛᴇs ❄️", url=f"https://t.me/GODX_BOTS"),
     ],
 ]
@@ -356,7 +356,7 @@ def Fallen_about_callback(update: Update, context: CallbackContext):
                 [
                     [
                         InlineKeyboardButton(
-                            text="🥀 sᴜᴘᴘᴏʀᴛ 🥀", url=f"https://t.me/tso_chats"
+                            text="🥀 sᴜᴘᴘᴏʀᴛ 🥀", url=f"https://t.me/the_hell_verse"
                         ),
                         InlineKeyboardButton(
                             text="❄️ ᴜᴘᴅᴀᴛᴇs ❄️", url=f"https://t.me/godx_bots"
