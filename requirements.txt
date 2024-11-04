@@ -22,7 +22,7 @@ lxml==4.9.3
 markdown2==2.4.11
 motor==3.5.2
 numpy==1.23.5
-opencv-python==4.9.0.78
+opencv-python==4.10.0.84
 pillow==9.5.0
 pretty_errors==1.2.25
 psycopg2-binary==2.9.9
