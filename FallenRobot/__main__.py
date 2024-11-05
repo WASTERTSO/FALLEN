@@ -92,7 +92,7 @@ buttons = [
         InlineKeyboardButton(text="⛩ ᴄᴏᴍᴍᴀɴᴅs ⛩", callback_data="help_back"),
     ],
     [
-        InlineKeyboardButton(text="🤖 ᴀʙᴏᴜᴛ ᴍᴇ 🤖", callback_data="fallen_"),
+        InlineKeyboardButton(text="🍷 ᴏᴡɴᴇʀ 🍷", url=f"https://t.me/imnotshiv"),
         InlineKeyboardButton(text="♪ ᴍᴜsɪᴄ ♪", callback_data="settings_back_helper"),
     ],
     [
