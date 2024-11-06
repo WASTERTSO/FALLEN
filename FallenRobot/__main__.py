@@ -97,7 +97,7 @@ buttons = [
     ],
     [
         InlineKeyboardButton(text="🥀 sᴜᴘᴘᴏʀᴛ 🥀", url=f"https://t.me/TSO_CHATS"),
-        InlineKeyboardButton(text="❄️ ᴜᴘᴅᴀᴛᴇs ❄️", url=f"https://t.me/BOTXHUBLoots"),
+        InlineKeyboardButton(text="❄️ ᴜᴘᴅᴀᴛᴇs ❄️", url=f"https://t.me/TSO_UPDATES"),
     ],
 ]
 
