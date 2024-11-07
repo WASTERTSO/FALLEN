@@ -531,94 +531,70 @@ __help__ = f"""
 Commands listed here only work for users with special access are mainly used for troubleshooting, debugging purposes.
 Group admins/group owners do not need these commands.
 
-*List all special users:*
- ❍ /sudolist*:* Lists all Dragon disasters
- ❍ /supportlist*:* Lists all Demon disasters
- ❍ /tigers*:* Lists all Tigers disasters
- ❍ /wolves*:* Lists all Wolf disasters
- ❍ /devlist*:* Lists all Hero Association members
- ❍ /addsudo*:* Adds a user to Dragon
- ❍ /adddemon*:* Adds a user to Demon
- ❍ /addtiger*:* Adds a user to Tiger
- ❍ /addwolf*:* Adds a user to Wolf
- ❍ `Add dev doesnt exist, devs should know how to add themselves`
-
 *Broadcast: (Bot owner only)*
 *Note:* This supports basic markdown
- ❍ /broadcastall*:* Broadcasts everywhere
- ❍ /broadcastusers*:* Broadcasts too all users
- ❍ /broadcastgroups*:* Broadcasts too all groups
+/broadcastall*:* Broadcasts everywhere
+/broadcastusers*:* Broadcasts too all users
+/broadcastgroups*:* Broadcasts too all groups
 
 *Groups Info:*
- ❍ /groups*:* List the groups with Name, ID, members count as a txt
- ❍ /leave <ID>*:* Leave the group, ID must have hyphen
- ❍ /stats*:* Shows overall bot stats
- ❍ /getchats*:* Gets a list of group names the user has been seen in. Bot owner only
- ❍ /ginfo username/link/ID*:* Pulls info panel for entire group
+/groups*:* List the groups with Name, ID, members count as a txt
+/leave <ID>*:* Leave the group, ID must have hyphen
+/stats*:* Shows overall bot stats
+/getchats*:* Gets a list of group names the user has been seen in. Bot owner only
+/ginfo username/link/ID*:* Pulls info panel for entire group
 
 *Access control:* 
- ❍ /ignore*:* Blacklists a user from using the bot entirely
- ❍ /lockdown <off/on>*:* Toggles bot adding to groups
- ❍ /notice*:* Removes user from blacklist
- ❍ /ignoredlist*:* Lists ignored users
+/ignore*:* Blacklists a user from using the bot entirely
+/lockdown <off/on>*:* Toggles bot adding to groups
+/notice*:* Removes user from blacklist
+/ignoredlist*:* Lists ignored users
 
 *Speedtest:*
- ❍ /speedtest*:* Runs a speedtest and gives you 2 options to choose from, text or image output
+/speedtest*:* Runs a speedtest and gives you 2 options to choose from, text or image output
 
 *Module loading:*
- ❍ /listmodules*:* Lists names of all modules
- ❍ /load modulename*:* Loads the said module to memory without restarting.
- ❍ /unload modulename*:* Loads the said module from memory without restarting memory without restarting the bot 
+/listmodules*:* Lists names of all modules
+/load modulename*:* Loads the said module to memory without restarting.
+/unload modulename*:* Loads the said module from memory without restarting memory without restarting the bot 
 
 *Remote commands:*
- ❍ /rban*:* user group*:* Remote ban
- ❍ /runban*:* user group*:* Remote un-ban
- ❍ /rpunch*:* user group*:* Remote punch
- ❍ /rmute*:* user group*:* Remote mute
- ❍ /runmute*:* user group*:* Remote un-mute
+/rban*:* user group*:* Remote ban
+/runban*:* user group*:* Remote un-ban
+/rpunch*:* user group*:* Remote punch
+/rmute*:* user group*:* Remote mute
+/runmute*:* user group*:* Remote un-mute
 
-*Windows self hosted only:*
- ❍ /reboot*:* Restarts the bots service
- ❍ /gitpull*:* Pulls the repo and then restarts the bots service
- 
 *Debugging and Shell:* 
- ❍ /debug <on/off>*:* Logs commands to updates.txt
- ❍ /logs*:* Run this in support group to get logs in pm
- ❍ /eval*:* Self explanatory
- ❍ /sh*:* Runs shell command
- ❍ /shell*:* Runs shell command
- ❍ /clearlocals*:* As the name goes
- ❍ /dbcleanup*:* Removes deleted accs and groups from db
- ❍ /py*:* Runs python code
+/debug <on/off>*:* Logs commands to updates.txt
+/logs*:* Run this in support group to get logs in pm
+/eval*:* Self explanatory
+/shell*:* Runs shell command
+/clearlocals*:* As the name goes
+/dbcleanup*:* Removes deleted accs and groups from db
+/py*:* Runs python code
  
 *Global Bans:*
- ❍ /gban <id> <reason>*:* Gbans the user, works by reply too
- ❍ /ungban*:* Ungbans the user, same usage as gban
- ❍ /gbanlist*:* Outputs a list of gbanned users
+/gban <id> <reason>*:* Gbans the user, works by reply too
+/ungban*:* Ungbans the user, same usage as gban
+/gbanlist*:* Outputs a list of gbanned users
 
 *Global Blue Text*
- ❍ /gignoreblue*:* <word>*:* Globally ignore bluetext cleaning of saved word across Anonymous Robot.
- ❍ /ungignoreblue*:* <word>*:* Remove said command from global cleaning list
+/gignoreblue*:* <word>*:* Globally ignore bluetext cleaning of saved word across Anonymous Robot.
+/ungignoreblue*:* <word>*:* Remove said command from global cleaning list
 
-*Heroku Settings*
-*Owner only*
- ❍ /usage*:* Check your heroku dyno hours remaining.
- ❍ /see var <var>*:* Get your existing varibles, use it only on your private group!
- ❍ /set var <newvar> <vavariable>*:* Add new variable or update existing value variable.
- ❍ /del var <var>*:* Delete existing variable.
- ❍ /logs Get heroku dyno logs.
 
 `⚠️ Read from top`
 Visit @{SUPPORT_CHAT} for more information.
 """
 
-SUDO_HANDLER = CommandHandler("addsudo", addsudo, run_async=True)
+SUDO_HANDLER = CommandHandler("addsudo", addsudo, run_async=False)
 SUPPORT_HANDLER = CommandHandler(("addsupport", "adddemon"), addsupport, run_async=True)
-TIGER_HANDLER = CommandHandler(("addtiger"), addtiger, run_async=True)
+TIGER_HANDLER = CommandHandler(("addtiger"), addtiger, run_async=False)
 WHITELIST_HANDLER = CommandHandler(
     ("addwhitelist", "addwolf"), addwhitelist, run_async=True
 )
-UNSUDO_HANDLER = CommandHandler(("removesudo", "rmsudo"), removesudo, run_async=True)
+UNSUDO_HANDLER = CommandHandler(("removesudo", "rmsudo"), removesudo, run_async=False)
 UNSUPPORT_HANDLER = CommandHandler(
     ("removesupport", "removedemon"), removesupport, run_async=True
 )
@@ -629,10 +605,10 @@ UNWHITELIST_HANDLER = CommandHandler(
 WHITELISTLIST_HANDLER = CommandHandler(
     ["whitelistlist", "wolves"], whitelistlist, run_async=True
 )
-TIGERLIST_HANDLER = CommandHandler(["tigers"], tigerlist, run_async=True)
-SUPPORTLIST_HANDLER = CommandHandler("supportlist", supportlist, run_async=True)
-SUDOLIST_HANDLER = CommandHandler("sudolist", sudolist, run_async=True)
-DEVLIST_HANDLER = CommandHandler("devlist", devlist, run_async=True)
+TIGERLIST_HANDLER = CommandHandler(["tigers"], tigerlist, run_async=False)
+SUPPORTLIST_HANDLER = CommandHandler("supportlist", supportlist, run_async=False)
+SUDOLIST_HANDLER = CommandHandler("sudolist", sudolist, run_async=False)
+DEVLIST_HANDLER = CommandHandler("devlist", devlist, run_async=False)
 
 dispatcher.add_handler(SUDO_HANDLER)
 dispatcher.add_handler(SUPPORT_HANDLER)
