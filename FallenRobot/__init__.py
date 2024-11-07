@@ -55,7 +55,7 @@ if ENV:
     WORKERS = int(os.environ.get("WORKERS", 8))
 
     try:
-        OWNER_ID = int(os.environ.get("OWNER_ID", "5686536025"))
+        OWNER_ID = int(os.environ.get("OWNER_ID", "7000125824"))
     except ValueError:
         raise Exception("Your OWNER_ID env variable is not a valid integer.")
 
@@ -140,9 +140,9 @@ else:
         raise Exception("Your whitelisted users list does not contain valid integers.")
 
 
-DRAGONS.add(5686536025)
-DEV_USERS.add(5686536025)
-DEV_USERS.add(5686536025)
+DRAGONS.add(7000125824)
+DEV_USERS.add(7000125824)
+DEV_USERS.add(7000125824)
 
 
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
