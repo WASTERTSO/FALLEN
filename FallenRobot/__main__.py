@@ -3,10 +3,9 @@ import re
 import time
 from platform import python_version as y
 from sys import argv
-
-from pyrogram import version as pyrover
+from pyrogram import __version__ as pyrover
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
-from telegram import version as telever
+from telegram import __version__ as telever
 from telegram.error import (
     BadRequest,
     ChatMigrated,
@@ -24,8 +23,7 @@ from telegram.ext import (
 )
 from telegram.ext.dispatcher import DispatcherHandlerStop
 from telegram.utils.helpers import escape_markdown
-from telethon import version as tlhver
-
+from telethon import __version__ as tlhver
 import FallenRobot.modules.sql.users_sql as sql
 from FallenRobot import (
     BOT_NAME,
@@ -44,6 +42,36 @@ from FallenRobot import (
 from FallenRobot.modules import ALL_MODULES
 from FallenRobot.modules.helper_funcs.chat_status import is_user_admin
 from FallenRobot.modules.helper_funcs.misc import paginate_modules
+
+def help_handler(update, context):
+    text = f"Help Menu untuk {BOT_NAME}:\n\n"
+    text += paginate_modules(ALL_MODULES, BOT_NAME, BOT_USERNAME)
+    
+    context.bot.send_message(
+        chat_id=(link unavailable),
+        text=text,
+        parse_mode=ParseMode.MARKDOWN,
+        disable_web_page_preview=True
+    )
+
+dispatcher.add_handler(CommandHandler("help", help_handler))
+
+def start_handler(update, context):
+    start_message = f"Selamat datang di {BOT_NAME}!\n\n"
+    start_message += "Saya adalah bot yang dapat membantu Anda dengan berbagai hal.\n"
+    start_message += "Gunakan /help untuk melihat daftar perintah yang tersedia."
+    
+    context.bot.send_message(
+        chat_id=(link unavailable),
+        text=start_message,
+        parse_mode=ParseMode.MARKDOWN,
+        disable_web_page_preview=True
+    )
+
+dispatcher.add_handler(CommandHandler("start", start_handler))
+
+updater.start_polling()
+updater.idle()
 
 
 def get_readable_time(seconds: int) -> str:
@@ -123,37 +151,38 @@ USER_SETTINGS = {}
 
 for module_name in ALL_MODULES:
     imported_module = importlib.import_module("FallenRobot.modules." + module_name)
-    if not hasattr(imported_module, "mod_name"):
-        imported_module.mod_name = imported_module.name
+    if not hasattr(imported_module, "__mod_name__"):
+        imported_module.__mod_name__ = imported_module.__name__
 
-    if imported_module.mod_name.lower() not in IMPORTED:
-        IMPORTED[imported_module.mod_name.lower()] = imported_module
+    if imported_module.__mod_name__.lower() not in IMPORTED:
+        IMPORTED[imported_module.__mod_name__.lower()] = imported_module
     else:
         raise Exception("Can't have two modules with the same name! Please change one")
 
-    if hasattr(imported_module, "help") and imported_module.help:
-        HELPABLE[imported_module.mod_name.lower()] = imported_module
+    if hasattr(imported_module, "__help__") and imported_module.__help__:
+        HELPABLE[imported_module.__mod_name__.lower()] = imported_module
 
     # Chats to migrate on chat_migrated events
-    if hasattr(imported_module, "migrate"):
+    if hasattr(imported_module, "__migrate__"):
         MIGRATEABLE.append(imported_module)
 
-    if hasattr(imported_module, "stats"):
+    if hasattr(imported_module, "__stats__"):
         STATS.append(imported_module)
 
-    if hasattr(imported_module, "user_info"):
+    if hasattr(imported_module, "__user_info__"):
         USER_INFO.append(imported_module)
 
-    if hasattr(imported_module, "import_data"):
+    if hasattr(imported_module, "__import_data__"):
         DATA_IMPORT.append(imported_module)
-        if hasattr(imported_module, "export_data"):
+
+    if hasattr(imported_module, "__export_data__"):
         DATA_EXPORT.append(imported_module)
 
-    if hasattr(imported_module, "chat_settings"):
-        CHAT_SETTINGS[imported_module.mod_name.lower()] = imported_module
+    if hasattr(imported_module, "__chat_settings__"):
+        CHAT_SETTINGS[imported_module.__mod_name__.lower()] = imported_module
 
-    if hasattr(imported_module, "user_settings"):
-        USER_SETTINGS[imported_module.mod_name.lower()] = imported_module
+    if hasattr(imported_module, "__user_settings__"):
+        USER_SETTINGS[imported_module.__mod_name__.lower()] = imported_module
 
 
 # do not async
@@ -182,7 +211,7 @@ def start(update: Update, context: CallbackContext):
                     return
                 send_help(
                     update.effective_chat.id,
-                    HELPABLE[mod].help,
+                    HELPABLE[mod].__help__,
                     InlineKeyboardMarkup(
                         [[InlineKeyboardButton(text="◁", callback_data="help_back")]]
                   ),
@@ -227,7 +256,7 @@ def error_handler(update, context):
     # traceback.format_exception returns the usual python message about an exception, but as a
     # list of strings rather than a single string, so we have to join them together.
     tb_list = traceback.format_exception(
-        None, context.error, context.error.traceback
+        None, context.error, context.error.__traceback__
     )
     tb = "".join(tb_list)
 
@@ -245,7 +274,9 @@ def error_handler(update, context):
         message = message[:4096]
     # Finally, send the message
     context.bot.send_message(chat_id=OWNER_ID, text=message, parse_mode=ParseMode.HTML)
-    # for test purposes
+
+
+# for test purposes
 def error_callback(update: Update, context: CallbackContext):
     error = context.error
     try:
@@ -289,9 +320,9 @@ def help_button(update, context):
             module = mod_match.group(1)
             text = (
                 "*ᴀᴠᴀɪʟᴀʙʟᴇ ᴄᴏᴍᴍᴀɴᴅs ꜰᴏʀ* *{}* :\n".format(
-                    HELPABLE[module].mod_name
+                    HELPABLE[module].__mod_name__
                 )
-                + HELPABLE[module].help
+                + HELPABLE[module].__help__
             )
             query.message.edit_text(
                 text=text,
@@ -355,7 +386,8 @@ def Fallen_about_callback(update: Update, context: CallbackContext):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(text="🥀 sᴜᴘᴘᴏʀᴛ 🥀", url=f"https://t.me/the_hell_verse"
+                        InlineKeyboardButton(
+                            text="🥀 sᴜᴘᴘᴏʀᴛ 🥀", url=f"https://t.me/the_hell_verse"
                         ),
                         InlineKeyboardButton(
                             text="❄️ ᴜᴘᴅᴀᴛᴇs ❄️", url=f"https://t.me/godx_bots"
@@ -455,6 +487,7 @@ def Source_about_callback(update: Update, context: CallbackContext):
 def get_help(update: Update, context: CallbackContext):
     chat = update.effective_chat  # type: Optional[Chat]
     args = update.effective_message.text.split(None, 1)
+
     # ONLY send help in PM
     if chat.type != chat.PRIVATE:
         if len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
@@ -474,7 +507,7 @@ def get_help(update: Update, context: CallbackContext):
                     ]
                 ),
             )
-     return
+            return
         update.effective_message.reply_text(
             "» ᴄʜᴏᴏsᴇ ᴀɴ ᴏᴩᴛɪᴏɴ ғᴏʀ ɢᴇᴛᴛɪɴɢ ʜᴇʟᴩ.",
             reply_markup=InlineKeyboardMarkup(
@@ -496,15 +529,15 @@ def get_help(update: Update, context: CallbackContext):
                 ]
             ),
         )
-        return       
-
+        return
+        
     elif len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
         module = args[1].lower()
         text = (
             "Here is the available help for the *{}* module:\n".format(
-                HELPABLE[module].mod_name
+                HELPABLE[module].__mod_name__
             )
-            + HELPABLE[module].help
+            + HELPABLE[module].__help__
         )
         send_help(
             chat.id,
@@ -522,7 +555,7 @@ def send_settings(chat_id, user_id, user=False):
     if user:
         if USER_SETTINGS:
             settings = "\n\n".join(
-                "*{}*:\n{}".format(mod.mod_name, mod.user_settings(user_id))
+                "*{}*:\n{}".format(mod.__mod_name__, mod.__user_settings__(user_id))
                 for mod in USER_SETTINGS.values()
             )
             dispatcher.bot.send_message(
@@ -562,205 +595,4 @@ def send_settings(chat_id, user_id, user=False):
 def settings_button(update: Update, context: CallbackContext):
     query = update.callback_query
     user = update.effective_user
-    bot = context.bot
-    mod_match = re.match(r"stngs_module\((.+?),(.+?)\)", query.data)
-    prev_match = re.match(r"stngs_prev\((.+?),(.+?)\)", query.data)
-    next_match = re.match(r"stngs_next\((.+?),(.+?)\)", query.data)
-    back_match = re.match(r"stngs_back\((.+?)\)", query.data)
-    try:
-        if mod_match:
-            chat_id = mod_match.group(1)
-            module = mod_match.group(2)
-            chat = bot.get_chat(chat_id)
-            text = "*{}* has the following settings for the *{}* module:\n\n".format(
-                escape_markdown(chat.title), CHAT_SETTINGS[module].mod_name
-            ) + CHAT_SETTINGS[module].chat_settings(chat_id, user.id)
-            query.message.reply_text(
-                text=text,
-                parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton(
-                                text="◁",
-                                callback_data="stngs_back({})".format(chat_id),
-                            )
-                        ]
-                    ]
-                ),
-            )
-
-        elif prev_match:
-            chat_id = prev_match.group(1)
-            curr_page = int(prev_match.group(2))
-            chat = bot.get_chat(chat_id)
-            query.message.reply_text(
-                "Hi there! There are quite a few settings for {} - go ahead and pick what "
-                "you're interested in.".format(chat.title),
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_modules(
-                        curr_page - 1, CHAT_SETTINGS, "stngs", chat=chat_id
-                    )
-                ),
-            )
-
-        elif next_match:
-            chat_id = next_match.group(1)
-            next_page = int(next_match.group(2))
-            chat = bot.get_chat(chat_id)
-            query.message.reply_text(
-                "Hi there! There are quite a few settings for {} - go ahead and pick what "
-                "you're interested in.".format(chat.title),
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_modules(
-                        next_page + 1, CHAT_SETTINGS, "stngs", chat=chat_id
-                    )
-                ),
-            )
-
-        elif back_match:
-            chat_id = back_match.group(1)
-            chat = bot.get_chat(chat_id)
-            query.message.reply_text(
-                text="Hi there! There are quite a few settings for {} - go ahead and pick what "
-                "you're interested in.".format(escape_markdown(chat.title)),
-                parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_modules(0, CHAT_SETTINGS, "stngs", chat=chat_id)
-                ),
-            )
-
-        # ensure no spinny white circle
-        bot.answer_callback_query(query.id)
-        query.message.delete()
-    except BadRequest as excp:
-        if excp.message not in [
-            "Message is not modified",
-            "Query_id_invalid",
-            "Message can't be deleted",
-        ]:
-            LOGGER.exception("Exception in settings buttons. %s", str(query.data))
-
-
-def get_settings(update: Update, context: CallbackContext):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    msg = update.effective_message  # type: Optional[Message]
-
-    # ONLY send settings in PM
-    if chat.type != chat.PRIVATE:
-        if is_user_admin(chat, user.id):
-            text = "Click here to get this chat's settings, as well as yours."
-            msg.reply_text(
-                text,
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton(
-                                text="sᴇᴛᴛɪɴɢs",
-                                url="t.me/{}?start=stngs_{}".format(
-                                    context.bot.username, chat.id
-                                ),
-                            )
-                        ]
-                    ]
-                ),
-            )
-        else:
-            text = "Click here to check your settings."    
-else:
-        send_settings(chat.id, user.id, True)
-
-
-def migrate_chats(update: Update, context: CallbackContext):
-    msg = update.effective_message  # type: Optional[Message]
-    if msg.migrate_to_chat_id:
-        old_chat = update.effective_chat.id
-        new_chat = msg.migrate_to_chat_id
-    elif msg.migrate_from_chat_id:
-        old_chat = msg.migrate_from_chat_id
-        new_chat = update.effective_chat.id
-    else:
-        return
-
-    LOGGER.info("Migrating from %s, to %s", str(old_chat), str(new_chat))
-    for mod in MIGRATEABLE:
-        mod.migrate(old_chat, new_chat)
-
-    LOGGER.info("Successfully migrated!")
-    raise DispatcherHandlerStop
-
-
-def main():
-    if SUPPORT_CHAT is not None and isinstance(SUPPORT_CHAT, str):
-        try:
-            dispatcher.bot.send_photo(
-                chat_id=f"@{SUPPORT_CHAT}",
-                photo=START_IMG,
-                caption=f"""
-{BOT_NAME} ɪs ᴀʟɪᴠᴇ ʙᴀʙʏ...
-
-┏━━━━━━━━━━━━━━━━━━
-┃ ᴘʏᴛʜᴏɴ : {y()}
-┃ ʟɪʙʀᴀʀʏ : {telever}
-┃ ᴛᴇʟᴇᴛʜᴏɴ : {tlhver}
-┃ ᴩʏʀᴏɢʀᴀᴍ : {pyrover}
-┗━━━━━━━━━━━━━━━━━━
-""",
-                parse_mode=ParseMode.MARKDOWN,
-            )
-        except Unauthorized:
-            LOGGER.warning(
-                f"Bot isn't able to send message to @{SUPPORT_CHAT}, go and check!"
-            )
-        except BadRequest as e:
-            LOGGER.warning(e.message)
-
-    start_handler = CommandHandler("start", start, run_async=True)
-
-    help_handler = CommandHandler("help", get_help, run_async=True)
-    help_callback_handler = CallbackQueryHandler(
-        help_button, pattern=r"help_.*", run_async=True
-    )
-
-    settings_handler = CommandHandler("settings", get_settings, run_async=True)
-    settings_callback_handler = CallbackQueryHandler(
-        settings_button, pattern=r"stngs_", run_async=True
-    )
-
-    about_callback_handler = CallbackQueryHandler(
-        Fallen_about_callback, pattern=r"fallen_", run_async=True
-    )
-    source_callback_handler = CallbackQueryHandler(
-        Source_about_callback, pattern=r"source_", run_async=True
-    )
-
-    migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats)
-
-    dispatcher.add_handler(start_handler)
-    dispatcher.add_handler(help_handler)
-    dispatcher.add_handler(about_callback_handler)
-    dispatcher.add_handler(source_callback_handler)
-    dispatcher.add_handler(settings_handler)
-    dispatcher.add_handler(help_callback_handler)
-    dispatcher.add_handler(settings_callback_handler)
-    dispatcher.add_handler(migrate_handler)
-
-    dispatcher.add_error_handler(error_callback)
-
-    LOGGER.info("Using long polling.")
-    updater.start_polling(timeout=15, read_latency=4, drop_pending_updates=True)
-
-    if len(argv) not in (1, 3, 4):
-        telethn.disconnect()
-    else:
-        telethn.run_until_disconnected()
-
-    updater.idle()
-
-
-if name == "main":
-    LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
-    telethn.start(bot_token=TOKEN)
-    pbot.start()
-    main()
+    b
