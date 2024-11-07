@@ -507,16 +507,28 @@ def get_help(update: Update, context: CallbackContext):
                     ]
                 ),
             )
-            return update.effective_message.reply_text(
-"» ᴄʜᴏᴏsᴇ ᴀɴ ᴏᴩᴛɪᴏɴ ғᴏʀ ɢᴇᴛᴛɪɴɢ ʜᴇʟᴩ.",
-reply_markup=InlineKeyboardMarkup([
-[
-InlineKeyboardButton(text="ᴍᴀɴᴀɢᴇᴍᴇɴᴛ", callback_data="help_back")
-],
-[
-InlineKeyboardButton(text="ᴍᴜsɪᴄ", callback_data="settings_back_helperg")
-]
-])
+            return
+        update.effective_message.reply_text(
+            "» ᴄʜᴏᴏsᴇ ᴀɴ ᴏᴩᴛɪᴏɴ ғᴏʀ ɢᴇᴛᴛɪɴɢ ʜᴇʟᴩ.",
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(
+                            text="ᴏᴩᴇɴ ɪɴ ᴩʀɪᴠᴀᴛᴇ",
+                            url="https://t.me/{}?start=help".format(
+                                context.bot.username
+                            ),
+                        )
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            text="ᴏᴩᴇɴ ʜᴇʀᴇ",
+                            callback_data="help_back",
+                        )
+                    ],
+                ]
+            ),
+        )
             )
     elif len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
         module = args[1].lower()
