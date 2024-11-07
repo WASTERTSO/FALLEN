@@ -485,12 +485,22 @@ def get_help(update: Update, context: CallbackContext):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        [
-InlineKeyboardButton(text="ᴍᴀɴᴀɢᴇᴍᴇɴᴛ", callback_data="help_back")
-],
-[
-InlineKeyboardButton(text="ᴍᴜsɪᴄ", callback_data="settings_back_helperg")
-            ]
+                        InlineKeyboardButton(
+                            text="ᴍᴀɴᴀɢᴇᴍᴇɴᴛ", 
+                            callback_data="help_back",
+                            
+                            ),
+                        )
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            text="ᴍᴜsɪᴄ",
+                            callback_data="settings_back_helperg",
+                        )
+                    ],
+                ]
+            ),
+        )
         return
 
     elif len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
