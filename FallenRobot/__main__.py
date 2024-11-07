@@ -45,38 +45,6 @@ from FallenRobot.modules import ALL_MODULES
 from FallenRobot.modules.helper_funcs.chat_status import is_user_admin
 from FallenRobot.modules.helper_funcs.misc import paginate_modules
 
-
-def help_handler(update, context):
-    text = f"Help Menu untuk {BOT_NAME}:\n\n"
-    text += paginate_modules(ALL_MODULES, BOT_NAME, BOT_USERNAME)
-    
-    context.bot.send_message(
-        chat_id=(link unavailable),
-        text=text,
-        parse_mode=ParseMode.MARKDOWN,
-        disable_web_page_preview=True
-    )
-
-dispatcher.add_handler(CommandHandler("help", help_handler))
-
-def start_handler(update, context):
-    start_message = f"Selamat datang di {BOT_NAME}!\n\n"
-    start_message += "Saya adalah bot yang dapat membantu Anda dengan berbagai hal.\n"
-    start_message += "Gunakan /help untuk melihat daftar perintah yang tersedia."
-    
-    context.bot.send_message(
-        chat_id=(link unavailable),
-        text=start_message,
-        parse_mode=ParseMode.MARKDOWN,
-        disable_web_page_preview=True
-    )
-
-dispatcher.add_handler(CommandHandler("start", start_handler))
-
-updater.start_polling()
-updater.idle()
-
-
 def get_readable_time(seconds: int) -> str:
     count = 0
     ping_time = ""
