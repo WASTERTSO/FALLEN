@@ -48,7 +48,7 @@ def help_handler(update, context):
     text += paginate_modules(ALL_MODULES, BOT_NAME, BOT_USERNAME)
     
     context.bot.send_message(
-        chat_id=(link unavailable),
+        chat_id=-1001995053703,
         text=text,
         parse_mode=ParseMode.MARKDOWN,
         disable_web_page_preview=True
