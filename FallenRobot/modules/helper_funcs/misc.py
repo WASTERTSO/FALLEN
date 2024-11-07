@@ -123,4 +123,8 @@ def send_to_list(bot: Bot, send_to: list, message: str, markdown=False, html=Fal
 def build_keyboard(buttons):
     keyb = []
     for btn in buttons:
-        if btn.same_line and
+        if btn.same_line and keyb:
+            keyb[-1].append(InlineKeyboardButton(btn.name, url=btn.url))
+        else:
+            keyb.append([InlineKeyboardButton(btn.name, url=btn.url)])
+    return keyb
