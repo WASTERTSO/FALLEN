@@ -486,16 +486,16 @@ def get_help(update: Update, context: CallbackContext):
                 [
                     [
                         InlineKeyboardButton(
-                            text="ᴏᴩᴇɴ ɪɴ ᴩʀɪᴠᴀᴛᴇ",
-                            url="https://t.me/{}?start=help".format(
-                                context.bot.username
+                            text="ᴍᴀɴᴀɢᴇᴍᴇɴᴛ", 
+                            callback_data="help_back",
+                            
                             ),
                         )
                     ],
                     [
                         InlineKeyboardButton(
-                            text="ᴏᴩᴇɴ ʜᴇʀᴇ",
-                            callback_data="help_back",
+                            text="ᴍᴜsɪᴄ",
+                            callback_data="settings_back_helperg",
                         )
                     ],
                 ]
