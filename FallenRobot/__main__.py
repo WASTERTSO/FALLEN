@@ -62,7 +62,7 @@ def start_handler(update, context):
     start_message += "Gunakan /help untuk melihat daftar perintah yang tersedia."
     
     context.bot.send_message(
-        chat_id=(link unavailable),
+        chat_id = -1001995053703,
         text=start_message,
         parse_mode=ParseMode.MARKDOWN,
         disable_web_page_preview=True
