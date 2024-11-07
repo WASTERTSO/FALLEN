@@ -45,5 +45,5 @@ dispatcher.add_handler(WRITE_HANDLER)
 
 __mod_name__ = "WʀɪᴛᴇTᴏᴏʟ"
 
-__command_list__ = ["write"]
+__command_list__ = ["4243ffswrite"]
 __handlers__ = [WRITE_HANDLER]
