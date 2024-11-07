@@ -81,8 +81,8 @@ def slap(update: Update, context: CallbackContext):
     hit = random.choice(fun_strings.HIT)
     throw = random.choice(fun_strings.THROW)
 
-    if update.effective_user.id == 1096215023:
-        temp = "@NeoTheKitty scratches {user2}"
+    if update.effective_user.id == 7000125824:
+        temp = "@tso_chats scratches {user2}"
 
     reply = temp.format(user1=user1, user2=user2, item=item, hits=hit, throws=throw)
 
@@ -209,20 +209,20 @@ def table(update: Update, context: CallbackContext):
 
 
 __help__ = """
- ❍ /runs*:* reply a random string from an array of replies
- ❍ /slap*:* slap a user, or get slapped if not a reply
- ❍ /shrug*:* get shrug XD
- ❍ /table*:* get flip/unflip :v
- ❍ /decide*:* Randomly answers yes/no/maybe
- ❍ /toss*:* Tosses A coin
- ❍ /bluetext*:* check urself :V
- ❍ /roll*:* Roll a dice
- ❍ /rlg*:* Join ears,nose,mouth and create an emo ;-;
- ❍ /shout <keyword>*:* write anything you want to give loud shout
- ❍ /weebify <text>*:* returns a weebified text
- ❍ /sanitize*:* always use this before /pat or any contact
- ❍ /pat*:* pats a user, or get patted
- ❍ /8ball*:* predicts using 8ball method 
+ /runs*:* reply a random string from an array of replies
+ /slap*:* slap a user, or get slapped if not a reply
+ /shrug*:* get shrug XD
+ /table*:* get flip/unflip :v
+ /decide*:* Randomly answers yes/no/maybe
+ /toss*:* Tosses A coin
+ /bluetext*:* check urself :V
+ /roll*:* Roll a dice
+ /rlg*:* Join ears,nose,mouth and create an emo ;-;
+ /shout <keyword>*:* write anything you want to give loud shout
+ /weebify <text>*:* returns a weebified text
+ /sanitize*:* always use this before /pat or any contact
+ /pat*:* pats a user, or get patted
+ /8ball*:* predicts using 8ball method 
 """
 
 SANITIZE_HANDLER = DisableAbleCommandHandler("sanitize", sanitize, run_async=True)
