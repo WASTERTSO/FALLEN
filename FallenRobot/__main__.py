@@ -487,7 +487,7 @@ InlineKeyboardButton(text="ᴍᴀɴᴀɢᴇᴍᴇɴᴛ", callback_data="help_bac
 InlineKeyboardButton(text="ᴍᴜsɪᴄ", callback_data="settings_back_helperg")
 ]
 ])
-
+)
     elif len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
         module = args[1].lower()
         text = (
